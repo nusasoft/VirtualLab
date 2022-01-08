@@ -1,0 +1,446 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rate of Photosynthesis Lab</title>
+  <style>
+    body::after {
+      content: url("images-individual/play-button.png") url("images-individual/reset-button.png") url("images-individual/pause-button.png");
+      height: 0;
+      overflow: hidden;
+      position: absolute;
+      width: 0;
+      z-index: -1
+    }
+
+    html {
+      border: 0;
+      height: 0;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      border: 0;
+      font-family: sans-serif;
+      font-size: 18px;
+      margin: 0;
+      padding: 0;
+      user-select: none
+    }
+
+    input {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none
+    }
+
+    input[type=text],
+    select {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      display: inline-block;
+      font-size: 18px;
+      margin: 8px 0;
+      padding: 12px 20px;
+      width: 100%
+    }
+
+    input[type=button] {
+      background-color: #5050d2;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+      margin: 8px 0;
+      padding: 14px 20px;
+      width: 100%
+    }
+
+    input[type=button]:hover {
+      background-color: #6161d7
+    }
+
+    .table {
+      border: 0 solid black;
+      overflow: hidden;
+      padding: 0;
+      width: 650px
+    }
+
+    .table p {
+      font-size: 22px
+    }
+
+    .left {
+      float: left;
+      width: 325px
+    }
+
+    .right {
+      float: right;
+      width: 325px
+    }
+
+    h2 {
+      margin: 10px 0 10px 0
+    }
+
+    #playToggle {
+      float: left
+    }
+
+    #seconds {
+      border-style: solid;
+      border-width: 2px;
+      float: left;
+      font-size: 26px;
+      height: 80px;
+      margin-left: 10px;
+      padding-top: 40px;
+      text-align: center;
+      width: 180px;
+      word-wrap: break-word
+    }
+
+    .slidecontainer {
+      width: 300px
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      -webkit-transition: .2s;
+      appearance: none;
+      background: #d3d3d3;
+      border-radius: 5px;
+      height: 25px;
+      margin: 10px 0 10px 0;
+      opacity: .7;
+      outline: none;
+      transition: opacity .2s;
+      width: 100%
+    }
+
+    .slider:hover {
+      opacity: 1
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      background: #2196f3;
+      border-radius: 20%;
+      cursor: pointer;
+      height: 45px;
+      width: 45px
+    }
+
+    .slider::-moz-range-thumb {
+      background: #2196f3;
+      border-radius: 20%;
+      cursor: pointer;
+      height: 45px;
+      width: 45px
+    }
+  </style>
+  <script async="" src="gtag/js.js?id=UA-83524280-17"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-83524280-17');
+  </script>
+</head>
+
+<body> <canvas id="canvas" width="650" height="320" style="display:block; position:absolute; left:0; top:0; z-index:0;"></canvas> <canvas id="canvas2" width="650" height="290" style="display:block; position:absolute; left:0; top:20; z-index:1;"></canvas>
+  <div id="control-block" style="position:absolute; left:0; top:320px;">
+    <div class="table">
+      <h2><span id="intensity">Intensitas Cahaya (Lumens):</span>&nbsp;<span id="slider1">1000</span></h2>
+    </div>
+    <div class="table">
+      <div class="left">
+        <div class="slidecontainer"> <input type="range" min="0" max="3000" value="1000" step="1000" class="slider" id="myRange1"> </div>
+        <div class="slidecontainer">
+          <h2><span id="temperature">Temperature:</span>&nbsp;<span id="slider2">10</span> &deg;C</h2> <input type="range" min="10" max="40" value="10" step="15" class="slider" id="myRange2"> </div>
+      </div>
+      <div class="right">
+        <h2 style="margin-left:10px;"><span id="bubbles">Jumlah Gelembung:</span>&nbsp;<span id="mullideArv">0</span></h2> <img id="playToggle" draggable="false" src="images-individual/play-button.png" onmouseover="this.style.cursor='pointer'" onclick="N()">
+        <div id="seconds"><span id="secondsNum">0</span>&nbsp;<span id="secondsId">seconds</span></div>
+      </div>
+    </div>
+  </div>
+  <p id="demo"></p>
+  <script>
+    var c = {
+      intensity: "Lamp intensity (Lumens):",
+      temperature: "Temperature:",
+      bubbles: "Number of bubbles:",
+      seconds: "seconds"
+    }
+    d("intensity") != null ? (c.intensity = decodeURIComponent(d("intensity"))) : 0;
+    d("temperature") != null ? (c.temperature = decodeURIComponent(d("temperature"))) : 0;
+    d("bubbles") != null ? (c.bubbles = decodeURIComponent(d("bubbles"))) : 0;
+    d("seconds") != null ? (c.seconds = decodeURIComponent(d("seconds"))) : 0;
+    if (d("referrer") != null) {
+      var dimensionValue = decodeURIComponent(d("referrer"));
+      gtag('event', 'graaspReferral_event', {
+        'GraaspReferral': dimensionValue
+      });
+    }
+
+    function d(P) {
+      var Q = decodeURIComponent(window.location.href);
+      var R = new RegExp('[?&]' + P + '=([^&#]*)', '\x69');
+      var S = R.exec(Q);
+      return S ? S[1] : null;
+    };
+    document.getElementById("intensity").innerHTML = c.intensity;
+    document.getElementById("temperature").innerHTML = c.temperature;
+    document.getElementById("bubbles").innerHTML = c.bubbles;
+    document.getElementById("secondsId").innerHTML = c.seconds;
+    var e;
+    var f;
+    var g = false;
+    var h = [];
+    var j = [];
+    var k = null;
+    var l;
+    var m;
+    var n;
+    var o = 2500;
+    var p;
+    var q;
+    var r = 0;
+    var s = true;
+    var t;
+    var u;
+    var v;
+    var w = 0;
+    var x = false;
+    var y = document.getElementById("myRange1");
+    var z = document.getElementById("myRange2");
+    var A = document.getElementById("slider1");
+    var B = document.getElementById("slider2");
+    A.innerHTML = y.value;
+    B.innerHTML = z.value;
+    y.oninput = function() {
+      A.innerHTML = this.value;
+      M();
+    }
+    z.oninput = function() {
+      B.innerHTML = this.value;
+      M();
+    }
+    D("img/costume0.png", "img/costume1.png", "img/costume2.png", "img/costume3.png", "img/costume4.png", "img/costume5.png", "img/costume6.png", "img/costume7.png", "img/costume8.png", "img/costume9.png", "img/costume10.png", "img/costume11.png", "img/bubble1.png", "img/bubble1-pop.png", "img/bubble2.png", "img/bubble2-pop.png", "img/bubble3.png", "img/bubble3-pop.png");
+    var C;
+    C = setInterval(E, 1000 / 30);
+
+    function D() {
+      for (var i = 0; i < arguments.length; i++) {
+        h[i] = new Image();
+        h[i].ready = false;
+        h[i].onload = function() {
+          this.ready = true;
+        };
+        h[i].src = arguments[i];
+      }
+    }
+
+    function E() {
+      var P = true;
+      for (var i = 0; i < h.length; i++) {
+        P = P && h[i].ready;
+      }(P) ? (clearInterval(C), F()) : 0;
+    }
+
+    function F() {
+      m = h[3];
+      n = h[14];
+      p = h[15];
+      q = 6;
+      e = document.getElementById('canvas');
+      canvas2 = document.getElementById('canvas2');
+      f = e.getContext('2d');
+      ctx2 = canvas2.getContext('2d');
+      l = 3;
+      v = 0;
+      L();
+    }
+
+    function G(P) {
+      (P < 10) ? (P = "\x30" + P) : 0;
+      return P;
+    }
+
+    function H(P) {
+      (g) ? (I(P), requestAnimationFrame(function(Q) {
+        H(Q);
+      })) : 0;
+    }
+
+    function I(P) {
+      var Q = 30000 / (q - 1);
+      var R = 225;
+      var S = 63;
+      var T = P - u;
+      var U = T / Q;
+      U = Math.min(U, 1);
+      var V = 500 / Q;
+      var W = V + 100 / Q;
+      var X = 0.99;
+      (s) ? (r++, s = false) : 0;
+      (U <= V) ? (o = R - (S * U / V).toFixed(2), J()) : ((U > V) && (U <= W)) ? (K()) : ((U > W) && (U < X)) ? (ctx2.clearRect(0, 30, 650, 320)) : (o = R, u = P, s = true);
+    }
+
+    function J() {
+      ctx2.globalCompositeOperation = 'source-over';
+      ctx2.clearRect(0, 30, 650, 320);
+      ctx2.drawImage(n, 180, o);
+      document.getElementById('mullideArv').innerHTML = r;
+    }
+
+    function K() {
+      ctx2.globalCompositeOperation = 'source-over';
+      ctx2.clearRect(0, 30, 650, 320);
+      ctx2.drawImage(p, 180, o);
+    }
+
+    function L() {
+      f.globalCompositeOperation = 'source-over';
+      f.clearRect(0, 0, 650, 320);
+      f.drawImage(m, 0, 0);
+    }
+
+    function M() {
+      document.getElementById('playToggle').src = 'img/play-button.png';
+      v = 0;
+      clearInterval(t);
+      document.getElementById('secondsNum').innerHTML = '\x30';
+      s = true;
+      document.getElementById('mullideArv').innerHTML = 0;
+      r = 0;
+      o = 2500;
+      g = false;
+      L();
+      J();
+      var P = y.value;
+      var Q = z.value;
+      ((P == 0) && (Q == 10)) ? (l = 0) : ((P == 0) && (Q == 25)) ? (l = 1) : ((P == 0) && (Q == 40)) ? (l = 2) : ((P == 1000) && (Q == 10)) ? (l = 3) : ((P == 1000) && (Q == 25)) ? (l = 4) : ((P == 1000) && (Q == 40)) ? (l = 5) : ((P == 2000) && (Q == 10)) ? (l = 6) : ((P == 2000) && (Q == 25)) ? (l = 7) : ((P == 2000) && (Q == 40)) ? (l = 8) : ((P == 3000) && (Q == 10)) ? (l = 9) : ((P == 3000) && (Q == 25)) ? (l = 10) : ((P == 3000) && (Q == 40)) ? (l = 11) : 0;
+      O();
+    }
+
+    function N() {
+      if (v == 0) {
+        v = 1;
+        w = 1;
+        document.getElementById('playToggle').src = 'img/pause-button.png';
+        o = 250;
+        g = true;
+        s = true;
+        requestAnimationFrame(function(P) {
+          u = P;
+          H(P);
+        });
+        t = window.setInterval((function() {
+          var P = Date.now();
+          document.getElementById('secondsNum').innerHTML = '\x30';
+          return function() {
+            document.getElementById('secondsNum').innerHTML = Math.floor((Date.now() - P) / 1000);
+          };
+        }()), 1000);
+      } else(v == 1) ? (v = 2, w = 2, document.getElementById('playToggle').src = 'img/reset-button.png', clearInterval(t), s = false, o = 2500, g = false, L(), J()) : (v = 0, w = 0, document.getElementById('playToggle').src = 'img/play-button.png', clearInterval(t), document.getElementById('secondsNum').innerHTML = '\x30', s = false, r = 0, o = 2500, g = false, L(), J());
+      O();
+    }
+
+    function O() {
+      switch (l) {
+        case 1:
+          m = h[1];
+          n = h[12];
+          p = h[13];
+          q = 4;
+          break;
+        case 2:
+          m = h[2];
+          n = h[12];
+          p = h[13];
+          q = 2;
+          break;
+        case 3:
+          m = h[3];
+          n = h[14];
+          p = h[15];
+          q = 6;
+          break;
+        case 4:
+          m = h[4];
+          n = h[14];
+          p = h[15];
+          q = 12;
+          break;
+        case 5:
+          m = h[5];
+          n = h[14];
+          p = h[15];
+          q = 6;
+          break;
+        case 6:
+          m = h[6];
+          n = h[16];
+          p = h[17];
+          q = 9;
+          break;
+        case 7:
+          m = h[7];
+          n = h[16];
+          p = h[17];
+          q = 18;
+          break;
+        case 8:
+          m = h[8];
+          n = h[16];
+          p = h[17];
+          q = 9;
+          break;
+        case 9:
+          m = h[9];
+          n = h[16];
+          p = h[17];
+          q = 10;
+          break;
+        case 10:
+          m = h[10];
+          n = h[16];
+          p = h[17];
+          q = 20;
+          break;
+        case 11:
+          m = h[11];
+          n = h[16];
+          p = h[17];
+          q = 10;
+          break;
+        default:
+          m = h[0];
+          n = h[12];
+          p = h[13];
+          q = 2;
+      }
+      L();
+    }
+  </script>
+</body>
+
+</html>

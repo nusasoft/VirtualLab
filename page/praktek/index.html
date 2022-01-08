@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<head>
+  <meta name="translations" lang="en" value="locales/en-xml.html">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--=============== FAVICON ===============-->
+        <link rel="shortcut icon" href="../../assets/img/favicon.png" type="image/x-icon">
+
+        <!--=============== BOXICONS ===============-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+        <!--=============== SWIPER CSS ===============--> 
+        <link rel="stylesheet" href="../../assets/css/swiper-bundle.min.css">
+
+        <!--=============== CSS ===============--> 
+        <link rel="stylesheet" href="../../assets/css/styles.css">
+  <title>Fotosintesis</title>
+  <style>
+
+    
+    #frame {
+        display: block;
+        overflow: hidden;
+        border: 0;
+        margin: 0 auto;
+        width: 650px;
+        height: 600px;
+        font-family: sans-serif;
+        font-size: 18px;
+        -ms-transform-origin: 0 0;
+        -moz-transform-origin: 0 0;
+        -o-transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+      }
+  </style>
+</head>
+
+<body>
+  <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">
+                    <img src="../../assets/img/logo.png" alt="" class="nav__logo-img">
+                    Praktek 
+                </a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="../../" class="nav__link ">Home</a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="latihan.html" class="nav__link">Latihan Soal</a>
+                        </li>
+
+                        <a href="index.html" class="button button--ghost active-link">Virtual Lab</a>
+                    </ul>
+
+                    <div class="nav__close" id="nav-close">
+                        <i class='bx bx-x'></i>
+                    </div>
+
+                    <img src="../../assets/img/nav-img.png" alt="" class="nav__img">
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-grid-alt'></i>
+                </div>
+
+            </nav>
+        </header>
+        <!-- END HEADER -->
+        <br><br><br>
+
+                <main class="main">                  
+      
+<script src="ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- <script src="https://composer.golabz.eu/static/js/translations-jquery-1.0.js"></script> -->
+<script src="external/js/translations-jquery-1.0.js"></script>
+
+<meta name='golab-i18n-autoload' value='true'>
+
+
+<iframe id="frame" frameborder="0"></iframe>
+<script type="text/javascript">
+
+  window.addEventListener("resize", myResize);
+  window.addEventListener("load", myResize);
+  window.addEventListener("orientationchange", myResize);
+  //gadgets.util.registerOnLoadHandler(init); 
+  window.addEventListener("load", init);
+  
+  function init() {
+      
+    const prefs = new golab.i18n({
+          });
+          
+    prefs.ready(function() {      
+      
+    var url = "photolab-individual.html";
+      
+    if (prefs.getMessage('intensity') == null) {
+      var t = {
+        intensity: "Intensitas Cahaya (Lumens):",
+        temperature: "Temperature:",
+        bubbles: "Jumlah gelembung:",
+        seconds: "detik"
+      }
+    } else {
+      var t = {
+        intensity: String(prefs.getMessage('intensitas')),
+        temperature: String(prefs.getMessage('temperature')),
+        bubbles: String(prefs.getMessage('gelembung')),
+        seconds: String(prefs.getMessage('detik'))
+      }
+    }
+    
+    var translationString = "";
+    var x;
+    for (x in t) {
+      translationString += "&" + x + "=" + encodeURIComponent(t[x]);
+    }
+
+    document.getElementById("frame").src = url + "?" + encodeURIComponent("referrer=" + document.referrer +
+      translationString);
+    
+    });  
+    
+  }
+
+  function myResize() {
+      var c;
+      var scale = 1;
+      var containerWidth = 650;
+      var containerHeight = 600;
+      var newHeight = containerHeight * window.innerWidth / containerWidth;
+
+      if (window.innerWidth < containerWidth) {
+        c = window.innerWidth / containerWidth;
+        //document.getElementById("frame").style.width = window.innerWidth + "px";
+        //document.getElementById("frame").style.height = newHeight + "px";
+        //gadgets.window.adjustHeight(newHeight);
+      } else {
+        c = scale;
+        //document.getElementById("frame").style.width = containerWidth + "px";
+        //document.getElementById("frame").style.height = containerHeight + "px";
+        //gadgets.window.adjustHeight(maxContainerHeight);
+      }
+
+      document.getElementById("frame").style.webkitTransform = "scale(" + c + ")";
+      document.getElementById("frame").style.MozTransform = "scale(" + c + ")";
+      document.getElementById("frame").style.msTransform = "scale(" + c + ")";
+      document.getElementById("frame").style.OTransform = "scale(" + c + ")";
+      document.getElementById("frame").style.transform = "scale(" + c + ")";
+    }
+  </script>
+
+
+            <div class="discount__data" style="padding-bottom: 35px">
+                <a href="../../" class="button" style="background-color: #c0392b">Kembali</a>
+                <span>&nbsp&nbsp</span>
+            </div>
+            
+  
+            
+        </main>
+          <!--=============== SCROLL UP ===============-->
+            <a href="#" class="scrollup" id="scroll-up">
+                <i class='bx bx-up-arrow-alt scrollup__icon'></i>
+            </a>
+        
+        <!--=============== SCROLL REVEAL ===============-->
+        <script src="../../assets/js/scrollreveal.min.js"></script>
+
+        <!--=============== SWIPER JS ===============-->
+        <script src="../../assets/js/swiper-bundle.min.js"></script>
+        
+        <!--=============== MAIN JS ===============-->
+        <script src="../../assets/js/main.js"></script>
+</body>
+
