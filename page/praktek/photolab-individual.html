@@ -167,17 +167,17 @@
 <body> <canvas id="canvas" width="650" height="320" style="display:block; position:absolute; left:0; top:0; z-index:0;"></canvas> <canvas id="canvas2" width="650" height="290" style="display:block; position:absolute; left:0; top:20; z-index:1;"></canvas>
   <div id="control-block" style="position:absolute; left:0; top:320px;">
     <div class="table">
-      <h2><span id="intensity">Intensitas Cahaya (Lumens):</span>&nbsp;<span id="slider1">1000</span></h2>
+      <h2><span id="intensity">Intensitas Cahaya (Lumens):</span>&nbsp;<span id="slider1" style="color: #ffffff">1000</span></h2>
     </div>
     <div class="table">
       <div class="left">
         <div class="slidecontainer"> <input type="range" min="0" max="3000" value="1000" step="1000" class="slider" id="myRange1"> </div>
         <div class="slidecontainer">
-          <h2><span id="temperature">Temperature:</span>&nbsp;<span id="slider2">10</span> &deg;C</h2> <input type="range" min="10" max="40" value="10" step="15" class="slider" id="myRange2"> </div>
+          <h2><span id="temperature" >Temperature:</span>&nbsp;<span id="slider2" style="color: #ffffff">10</span><span style="color: #ffffff">&deg;C</span> </h2> <input type="range" min="10" max="40" value="10" step="15" class="slider" id="myRange2"> </div>
       </div>
       <div class="right">
         <h2 style="margin-left:10px;"><span id="bubbles">Jumlah Gelembung:</span>&nbsp;<span id="mullideArv" style="color: #ffffff">0</span></h2> <img id="playToggle" draggable="false" src="images-individual/play-button.png" onmouseover="this.style.cursor='pointer'" onclick="N()">
-        <div id="seconds"><span id="secondsNum">0</span>&nbsp;<span id="secondsId">seconds</span></div>
+        <div id="seconds"><span id="secondsNum" style="color: #ffffff">0</span>&nbsp;<span id="secondsId">seconds</span></div>
       </div>
     </div>
   </div>
