@@ -7,7 +7,6 @@
   <title>Fotosintesis Lab</title>
   <style>
     body::after {
-      content: url("images-individual/play-button.png") url("images-individual/reset-button.png") url("images-individual/pause-button.png");
       height: 0;
       overflow: hidden;
       position: absolute;
@@ -167,13 +166,13 @@
 <body> <canvas id="canvas" width="650" height="320" style="display:block; position:absolute; left:0; top:0; z-index:0;"></canvas> <canvas id="canvas2" width="650" height="290" style="display:block; position:absolute; left:0; top:20; z-index:1;"></canvas>
   <div id="control-block" style="position:absolute; left:0; top:320px;">
     <div class="table">
-      <h2><span id="intensity">Intensitas Cahaya (Lumens):</span>&nbsp;<span id="slider1" style="color: #ffffff">1000</span></h2>
+      <h2 style="padding-left: 10px;"><span id="intensity">Intensitas Cahaya (Lumens):</span>&nbsp;<span id="slider1" style="color: #ffffff">1000</span></h2>
     </div>
     <div class="table">
       <div class="left">
-        <div class="slidecontainer"> <input type="range" min="0" max="3000" value="1000" step="1000" class="slider" id="myRange1"> </div>
-        <div class="slidecontainer">
-          <h2><span id="temperature" >Temperature:</span>&nbsp;<span id="slider2" style="color: #ffffff">10</span><span style="color: #ffffff">&deg;C</span> </h2> <input type="range" min="10" max="40" value="10" step="15" class="slider" id="myRange2"> </div>
+        <div class="slidecontainer" style="padding-left: 10px;"> <input type="range" min="0" max="3000" value="1000" step="1000" class="slider" id="myRange1"> </div>
+        <div class="slidecontainer" style="padding-left: 10px;">
+          <h2 style="padding-left: 10px;"><span id="temperature" >Temperature:</span>&nbsp;<span id="slider2" style="color: #ffffff">10</span><span style="color: #ffffff">&deg;C</span> </h2> <input type="range" min="10" max="40" value="10" step="15" class="slider" id="myRange2"> </div>
       </div>
       <div class="right">
         <h2 style="margin-left:10px;"><span id="bubbles">Jumlah Gelembung:</span>&nbsp;<span id="mullideArv" style="color: #ffffff">0</span></h2> <img id="playToggle" draggable="false" src="images-individual/play-button.png" onmouseover="this.style.cursor='pointer'" onclick="N()">
